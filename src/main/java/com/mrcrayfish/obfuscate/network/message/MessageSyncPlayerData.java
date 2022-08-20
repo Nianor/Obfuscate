@@ -3,8 +3,8 @@ package com.mrcrayfish.obfuscate.network.message;
 import com.mrcrayfish.obfuscate.client.ClientHandler;
 import com.mrcrayfish.obfuscate.common.data.SyncedPlayerData;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.fmllegacy.network.NetworkDirection;
-import net.minecraftforge.fmllegacy.network.NetworkEvent;
+import net.minecraftforge.network.NetworkDirection;
+import net.minecraftforge.network.NetworkEvent;
 
 import java.util.ArrayList;
 import java.util.List;

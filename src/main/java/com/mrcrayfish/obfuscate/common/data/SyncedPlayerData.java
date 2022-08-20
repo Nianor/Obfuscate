@@ -16,17 +16,14 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityInject;
-import net.minecraftforge.common.capabilities.ICapabilitySerializable;
-import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
+import net.minecraftforge.common.capabilities.*;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fmllegacy.network.PacketDistributor;
+import net.minecraftforge.network.PacketDistributor;
 import org.apache.commons.lang3.Validate;
 
 import javax.annotation.Nonnull;
@@ -61,8 +58,7 @@ import java.util.stream.Collectors;
  */
 public class SyncedPlayerData
 {
-    @CapabilityInject(DataHolder.class)
-    public static final Capability<DataHolder> CAPABILITY = null;
+    static Capability<DataHolder> CAPABILITY = CapabilityManager.get(new CapabilityToken<>(){});
 
     private static SyncedPlayerData instance;
 

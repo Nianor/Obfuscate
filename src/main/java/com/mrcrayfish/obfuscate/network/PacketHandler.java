@@ -4,9 +4,9 @@ import com.mrcrayfish.obfuscate.Reference;
 import com.mrcrayfish.obfuscate.network.message.IMessage;
 import com.mrcrayfish.obfuscate.network.message.MessageSyncPlayerData;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.fmllegacy.network.FMLHandshakeHandler;
-import net.minecraftforge.fmllegacy.network.NetworkRegistry;
-import net.minecraftforge.fmllegacy.network.simple.SimpleChannel;
+import net.minecraftforge.network.NetworkRegistry;
+import net.minecraftforge.network.simple.SimpleChannel;
+import net.minecraftforge.network.HandshakeHandler;
 
 /**
  * Author: MrCrayfish
@@ -30,22 +30,23 @@ public class PacketHandler
 
     public static void register()
     {
-        HANDSHAKE_CHANNEL.messageBuilder(HandshakeMessages.C2SAcknowledge.class, 99)
+        HANDSHAKE_CHANNEL.messageBuilder(HandshakeMessages.C2SAcknowledge.class,99)
             .loginIndex(HandshakeMessages.LoginIndexedMessage::getLoginIndex, HandshakeMessages.LoginIndexedMessage::setLoginIndex)
             .decoder(HandshakeMessages.C2SAcknowledge::decode)
             .encoder(HandshakeMessages.C2SAcknowledge::encode)
-            .consumer(FMLHandshakeHandler.indexFirst((handler, msg, s) -> HandshakeHandler.handleAcknowledge(msg, s)))
+            .consumer(HandshakeHandler.indexFirst((handler, msg, s) -> com.mrcrayfish.obfuscate.network.HandshakeHandler.handleAcknowledge(msg, s)))
             .add();
 
         HANDSHAKE_CHANNEL.messageBuilder(HandshakeMessages.S2CSyncedPlayerData.class, 1)
             .loginIndex(HandshakeMessages.LoginIndexedMessage::getLoginIndex, HandshakeMessages.LoginIndexedMessage::setLoginIndex)
             .decoder(HandshakeMessages.S2CSyncedPlayerData::decode)
             .encoder(HandshakeMessages.S2CSyncedPlayerData::encode)
-            .consumer(FMLHandshakeHandler.biConsumerFor((handler, msg, supplier) -> HandshakeHandler.handleSyncedPlayerData(msg, supplier)))
+            .consumer(HandshakeHandler.biConsumerFor((handler, msg, supplier) -> com.mrcrayfish.obfuscate.network.HandshakeHandler.handleSyncedPlayerData(msg, supplier)))
             .markAsLoginPacket()
             .add();
 
         registerPlayMessage(MessageSyncPlayerData.class, new MessageSyncPlayerData());
+
     }
 
     private static <T> void registerPlayMessage(Class<T> clazz, IMessage<T> message)

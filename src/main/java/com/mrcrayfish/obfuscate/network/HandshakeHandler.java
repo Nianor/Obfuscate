@@ -3,7 +3,7 @@ package com.mrcrayfish.obfuscate.network;
 import com.mrcrayfish.obfuscate.Obfuscate;
 import com.mrcrayfish.obfuscate.common.data.SyncedPlayerData;
 import net.minecraft.network.chat.TextComponent;
-import net.minecraftforge.fmllegacy.network.NetworkEvent;
+import net.minecraftforge.network.NetworkEvent;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
 
